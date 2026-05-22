@@ -1,0 +1,44 @@
+import { useTranslation } from "react-i18next"
+import { NotebookPen, Plus } from "lucide-react"
+import type { ProviderProfileData } from "../../types"
+
+interface CoordinatorNotesProps {
+  provider: ProviderProfileData
+}
+
+export function CoordinatorNotes({ provider }: CoordinatorNotesProps) {
+  const { t } = useTranslation()
+
+  return (
+    <div className="bg-slate-50/80 rounded-[32px] p-8 flex flex-col gap-6 border border-slate-100">
+      <div className="flex items-center justify-between pb-2 border-b border-slate-200/50">
+        <div className="flex items-center gap-3">
+          <NotebookPen className="text-primary" size={20} />
+          <h2 className="text-lg font-bold text-slate-800">{t("portfolio.coordinator_notes")}</h2>
+        </div>
+        <button className="text-[10px] font-bold text-primary uppercase tracking-widest flex items-center gap-1 hover:text-primary/80 transition-colors">
+          <Plus size={14} />
+          {t("portfolio.add_note")}
+        </button>
+      </div>
+
+      <div className="bg-white rounded-[24px] p-6 shadow-sm border border-slate-100 flex flex-col gap-4 relative overflow-hidden">
+        {/* Accent line */}
+        <div className="absolute left-0 top-0 bottom-0 w-1 bg-primary" />
+        
+        <div className="flex items-center justify-between">
+          <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">
+            {provider.notes.date}
+          </span>
+          <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">
+            BY {provider.notes.author}
+          </span>
+        </div>
+        
+        <p className="text-sm text-slate-600 leading-relaxed font-medium">
+          {provider.notes.content}
+        </p>
+      </div>
+    </div>
+  )
+}
