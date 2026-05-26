@@ -1,15 +1,15 @@
 import { useState } from "react"
 import { useTranslation } from "react-i18next"
 import { Button } from "../../../components/ui/button"
-import { 
-  Dialog, 
-  DialogContent, 
-  DialogHeader, 
-  DialogTitle, 
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
   DialogDescription,
-  DialogFooter 
+  DialogFooter
 } from "../../../components/ui/dialog"
-import { Send, CheckCircle2, Loader2, AlertCircle } from "lucide-react"
+import { Send, CheckCircle2, Loader2 } from "lucide-react"
 
 interface BiddingPoolModalProps {
   isOpen: boolean
@@ -21,7 +21,6 @@ interface BiddingPoolModalProps {
 
 export function BiddingPoolModal({ isOpen, onClose, onConfirm, zipCode, discipline }: BiddingPoolModalProps) {
   const { t } = useTranslation('translation')
-  const [urgency, setUrgency] = useState("standard")
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [isSuccess, setIsSuccess] = useState(false)
 
@@ -73,66 +72,21 @@ export function BiddingPoolModal({ isOpen, onClose, onConfirm, zipCode, discipli
                 </div>
               </div>
 
-              {/* Urgency Selection */}
-              <div className="flex flex-col gap-4">
-                <span className="text-sm font-bold text-slate-700">{t("cases.urgency_label")}</span>
-                <div className="flex gap-4">
-                  <button 
-                    onClick={() => setUrgency("standard")}
-                    className={`flex-1 p-4 rounded-2xl border-2 transition-all flex flex-col gap-1 text-left ${
-                      urgency === "standard" 
-                        ? "border-primary bg-primary/5 ring-1 ring-primary/20" 
-                        : "border-slate-100 bg-white hover:border-slate-200"
-                    }`}
-                  >
-                    <span className={`text-sm font-bold ${urgency === "standard" ? "text-primary" : "text-slate-700"}`}>
-                      {t("cases.standard_urgency")}
-                    </span>
-                    <span className="text-xs text-slate-500 italic">{t("cases.standard_response_desc")}</span>
-                  </button>
-                  <button 
-                    onClick={() => setUrgency("high")}
-                    className={`flex-1 p-4 rounded-2xl border-2 transition-all flex flex-col gap-1 text-left ${
-                      urgency === "high" 
-                        ? "border-amber-500 bg-amber-50 ring-1 ring-amber-200" 
-                        : "border-slate-100 bg-white hover:border-slate-200"
-                    }`}
-                  >
-                    <div className="flex items-center justify-between">
-                      <span className={`text-sm font-bold ${urgency === "high" ? "text-amber-700" : "text-slate-700"}`}>
-                        {t("cases.high_priority")}
-                      </span>
-                      <AlertCircle size={14} className={urgency === "high" ? "text-amber-500" : "text-slate-300"} />
-                    </div>
-                    <span className="text-xs text-slate-500 italic">{t("cases.high_priority_desc")}</span>
-                  </button>
-                </div>
-              </div>
-
-              {/* Coordinator's Note */}
-              <div className="flex flex-col gap-3">
-                <span className="text-sm font-bold text-slate-700">{t("cases.coordinator_note_label")}</span>
-                <textarea 
-                  className="w-full min-h-[100px] p-4 rounded-2xl bg-slate-50 border-none focus:ring-2 focus:ring-primary/20 text-sm text-slate-600 placeholder:text-slate-400"
-                  placeholder={t("cases.coordinator_note_placeholder")}
-                />
-              </div>
-
-              <div className="flex items-center gap-2 text-xs text-slate-500 italic">
-                <CheckCircle2 size={14} className="text-emerald-500" />
-                {t("cases.providers_notified_est", { count: 42 })}
+              <div className="flex items-center gap-3 text-sm font-bold p-5 bg-emerald-50 text-emerald-700 rounded-2xl border border-emerald-100">
+                <CheckCircle2 size={24} className="text-emerald-500 shrink-0" />
+                <span>{t("cases.providers_notified_est", { count: 42, defaultValue: "42 therapists in your network will be notified immediately" })}</span>
               </div>
             </div>
 
             <DialogFooter className="p-8 pt-6 bg-white border-t border-slate-50 flex gap-3 shrink-0">
-              <Button 
-                variant="ghost" 
-                onClick={onClose} 
+              <Button
+                variant="ghost"
+                onClick={onClose}
                 className="flex-1 rounded-full font-bold text-slate-500 hover:bg-slate-100 h-12"
               >
                 {t("common.cancel")}
               </Button>
-              <Button 
+              <Button
                 onClick={handleConfirm}
                 disabled={isSubmitting}
                 className="flex-[2] rounded-full bg-primary hover:bg-primary/90 text-white font-bold h-12 gap-2"

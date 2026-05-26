@@ -3,6 +3,7 @@ import { z } from "zod"
 export const patientSchema = z.object({
   // Personal Identity
   fullName: z.string().min(3, "Full legal name is required"),
+  gender: z.enum(["male", "female"], { error: "Gender is required" }),
   phone: z.string().min(10, "Valid phone number is required"),
   email: z.string().email("Invalid email address"),
   

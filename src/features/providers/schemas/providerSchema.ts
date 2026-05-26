@@ -8,7 +8,7 @@ export const providerSchema = z.object({
   specializedServices: z.string().optional(),
 
   // Coverage & Logistics
-  zipCodes: z.string().min(5, "Service ZIP codes are required"),
+  zipCodes: z.array(z.string()).min(1, "Select at least one ZIP code"),
   insuranceNetworks: z.array(z.string()).min(1, "Select at least one insurance network"),
   languagesSpoken: z.string().min(2, "Languages spoken are required"),
 

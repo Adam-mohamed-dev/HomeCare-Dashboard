@@ -12,9 +12,9 @@ import { cn } from "../../../lib/utils"
 
 interface RecommendedProviderCardProps {
   provider: MatchProvider
-  patientName: string
-  patientInitials: string
-  caseId: string
+  patientName?: string
+  patientInitials?: string
+  caseId?: string
 }
 
 export function RecommendedProviderCard({ 
@@ -91,12 +91,20 @@ export function RecommendedProviderCard({
 
             {/* Buttons */}
             <div className="flex flex-col gap-2 w-full md:w-[140px]">
-              <Button 
-                onClick={() => setIsModalOpen(true)}
-                className="w-full rounded-full bg-primary hover:bg-primary/90 text-white font-bold h-10 border-none"
-              >
-                {t("cases.direct_assign")}
-              </Button>
+              {patientName && patientInitials && caseId ? (
+                <Button 
+                  onClick={() => setIsModalOpen(true)}
+                  className="w-full rounded-full bg-primary hover:bg-primary/90 text-white font-bold h-10 border-none"
+                >
+                  {t("cases.direct_assign")}
+                </Button>
+              ) : (
+                <Button 
+                  className="w-full rounded-full bg-primary hover:bg-primary/90 text-white font-bold h-10 border-none"
+                >
+                  {t("appointments.book_btn", { defaultValue: "Book" })}
+                </Button>
+              )}
               <Link to="/providers/$providerId" params={{ providerId: provider.id }}>
                 <Button variant="outline" className="w-full rounded-full border-slate-100 bg-slate-50 text-slate-600 font-bold h-10 hover:bg-slate-100">
                   {t("cases.view_profile_btn")}
@@ -107,16 +115,18 @@ export function RecommendedProviderCard({
         </div>
       </CardContent>
 
-      <DirectAssignModal 
-        isOpen={isModalOpen}
-        onClose={() => setIsModalOpen(false)}
-        providerName={provider.name}
-        providerImage={provider.image}
-        providerUtilization={provider.utilization}
-        patientName={patientName}
-        patientInitials={patientInitials}
-        caseId={caseId}
-      />
+      {patientName && patientInitials && caseId && (
+        <DirectAssignModal 
+          isOpen={isModalOpen}
+          onClose={() => setIsModalOpen(false)}
+          providerName={provider.name}
+          providerImage={provider.image}
+          providerUtilization={provider.utilization}
+          patientName={patientName}
+          patientInitials={patientInitials}
+          caseId={caseId}
+        />
+      )}
     </Card>
   )
 }

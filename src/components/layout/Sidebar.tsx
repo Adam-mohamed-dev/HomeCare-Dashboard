@@ -6,7 +6,8 @@ import {
   Gauge,
   X,
   MessageSquare,
-  Calendar
+  Calendar,
+  MapPinned
 } from "lucide-react"
 import { useTranslation } from "react-i18next"
 import { cn } from "../../lib/utils"
@@ -20,6 +21,7 @@ const navItems = [
   { icon: ClipboardList, labelKey: "nav.cases", to: "/cases" },
   { icon: MessageSquare, labelKey: "nav.messages", to: "/messages" },
   { icon: Calendar, labelKey: "nav.appointments", to: "/appointments" },
+  { icon: MapPinned, labelKey: "nav.areas", to: "/areas" },
   { icon: Gauge, labelKey: "nav.workload", to: "/workload" },
 ]
 

@@ -1,8 +1,7 @@
 import { useTranslation } from "react-i18next"
 import { Search } from "lucide-react"
-import { ProviderCard } from "../../providers/components/provider-sections/ProviderCard"
+import { RecommendedProviderCard } from "../../cases/components/RecommendedProviderCard"
 import { mockMatches } from "../../cases/data/mockMatches"
-import type { ProviderSummary } from "../../providers/types"
 
 interface AppointmentResultsProps {
   hasSearched: boolean
@@ -39,30 +38,13 @@ export function AppointmentResults({ hasSearched }: AppointmentResultsProps) {
         </div>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        {mockMatches.map((match) => {
-          // Map MatchProvider to ProviderSummary for reuse
-          const provider: ProviderSummary = {
-            id: match.id,
-            name: match.name,
-            discipline: match.credentials === "DPT" ? t("portfolio.discipline_pt") : t("portfolio.discipline_ot"),
-            location: match.location,
-            rating: 4.9,
-            reviews: 24,
-            availability: t("appointments.available_on_day", { day: t("common.tue") }),
-            image: match.image,
-            status: "Active",
-            utilization: match.utilization
-          }
-
-          return (
-            <ProviderCard 
-              key={provider.id} 
-              provider={provider} 
-              onViewSchedule={() => {}}
-            />
-          )
-        })}
+      <div className="flex flex-col gap-6">
+        {mockMatches.map((match) => (
+          <RecommendedProviderCard 
+            key={match.id} 
+            provider={match} 
+          />
+        ))}
       </div>
     </div>
   )
