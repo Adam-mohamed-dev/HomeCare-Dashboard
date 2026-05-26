@@ -11,13 +11,15 @@ interface StatCardProps {
 }
 
 export function StatCard({ title, value, trend, icon, type }: StatCardProps) {
-  const trendColor = ({
+  const TREND_COLORS: Record<DashboardStatus, string> = {
     primary: "text-primary",
     emerald: "text-emerald-500",
     slate: "text-slate-400",
     success: "text-emerald-500",
     urgent: "text-red-500"
-  } as Record<string, string>)[type] || "text-slate-400"
+  }
+
+  const trendColor = TREND_COLORS[type] || "text-slate-400"
 
   return (
     <Card className="rounded-[32px] p-8 border border-slate-50 shadow-sm shadow-slate-100/50 bg-white hover:shadow-md transition-all duration-300 group">

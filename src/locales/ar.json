@@ -73,7 +73,8 @@
     "cases": "قائمة الحالات",
     "analytics": "التحليلات",
     "messages": "الرسائل",
-    "appointments": "المواعيد"
+    "appointments": "المواعيد",
+    "workload": "عبء العمل"
   },
   "dashboard": {
     "subtitle": "خط الإحالات الخاص بك نشط اليوم. لديك {{count}} تقييمات عاجلة قيد المراجعة.",
@@ -342,5 +343,56 @@
     "sort_distance": "أقرب مسافة",
     "sort_rating": "أعلى تقييم",
     "available_on_day": "متاح يوم {{day}}"
+  },
+  "workload": {
+    "mgmt_title": "عبء العمل",
+    "mgmt_desc": "عناصر مفتوحة مجمعة حسب نوع المشكلة. كل قسم يستخدم نفس سير العمل لكل صف.",
+    "search_placeholder": "البحث عن مريض أو مزود أو حالة...",
+    "view_case": "عرض الحالة",
+    "view_provider": "عرض المزود",
+    "no_actions_in_tab": "لا توجد عناصر مفتوحة في هذا التبويب.",
+    "group_count": "{{count}} عناصر",
+    "col_issue_type": "نوع المشكلة",
+    "all_issue_types": "جميع أنواع المشاكل",
+    "col_patient": "المريض",
+    "col_provider": "المزود",
+    "col_case": "الحالة",
+    "col_reported": "تم الإبلاغ",
+    "col_priority": "الأولوية",
+    "tabs": {
+      "assignments": "التعيينات",
+      "visits": "زيارات ميدانية",
+      "referrals": "الإحالات",
+      "assignments_desc": "استجابات التعيين المعلقة من المزودين.",
+      "visits_desc": "استثناءات الزيارة الميدانية التي تحتاج متابعة المنسق.",
+      "referrals_desc": "عناصر خط الإحالات التي تحتاج إعادة تعيين أو تصعيد."
+    },
+    "severity": {
+      "urgent": "عاجل",
+      "high": "مرتفع",
+      "normal": "عادي"
+    },
+    "groups": {
+      "assignment_no_response": "بانتظار رد المزود",
+      "assignment_no_response_desc": "معين لمزود—لم يقبل أو يرفض بعد.",
+      "visit_arrival_delay": "تأخير الوصول",
+      "visit_arrival_delay_desc": "المزود تجاوز نافذة الوصول المجدولة.",
+      "visit_patient_not_found": "المريض غير موجود",
+      "visit_patient_not_found_desc": "المزود في الموقع ولم يجد المريض.",
+      "visit_patient_unavailable": "المريض غير متاح",
+      "visit_patient_unavailable_desc": "وصل المزود؛ المريض غير متاح للزيارة.",
+      "referral_declined": "إحالات مرفوضة",
+      "referral_declined_desc": "رفض المزود الحالة—يحتاج تعييناً جديداً.",
+      "referral_unassigned_urgent": "إحالات عاجلة بدون تعيين",
+      "referral_unassigned_urgent_desc": "حالات عالية الأولوية بدون مزود مطابق."
+    },
+    "resolve": {
+      "assignment_no_response": "متابعة",
+      "visit_arrival_delay": "متابعة",
+      "visit_patient_not_found": "متابعة",
+      "visit_patient_unavailable": "متابعة",
+      "referral_declined": "متابعة",
+      "referral_unassigned_urgent": "متابعة"
+    }
   }
 }

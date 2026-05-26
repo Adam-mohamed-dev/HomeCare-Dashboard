@@ -3,7 +3,7 @@ import {
   Users,
   BriefcaseMedical,
   ClipboardList,
-  BarChart3,
+  Gauge,
   X,
   MessageSquare,
   Calendar
@@ -20,7 +20,7 @@ const navItems = [
   { icon: ClipboardList, labelKey: "nav.cases", to: "/cases" },
   { icon: MessageSquare, labelKey: "nav.messages", to: "/messages" },
   { icon: Calendar, labelKey: "nav.appointments", to: "/appointments" },
-  { icon: BarChart3, labelKey: "nav.analytics", to: "/analytics" },
+  { icon: Gauge, labelKey: "nav.workload", to: "/workload" },
 ]
 
 interface SidebarProps {

@@ -1,8 +1,7 @@
-import { Search } from "lucide-react"
 import { useTranslation } from "react-i18next"
 import { DISCIPLINE_OPTIONS } from "../../../shared/constants"
-import { Input } from "../../../../components/ui/input"
 import { FilterPill } from "../../../../components/ui/filter-pill"
+import { SearchInput } from "../../../../components/ui/search-input"
 
 interface ProviderFiltersProps {
   searchTerm: string
@@ -13,22 +12,22 @@ interface ProviderFiltersProps {
   setStatus: (value: string) => void
 }
 
-export function ProviderFilters({ 
-  searchTerm, 
-  setSearchTerm, 
-  discipline, 
-  setDiscipline, 
-  status, 
-  setStatus 
+export function ProviderFilters({
+  searchTerm,
+  setSearchTerm,
+  discipline,
+  setDiscipline,
+  status,
+  setStatus,
 }: ProviderFiltersProps) {
-  const { t } = useTranslation('translation')
+  const { t } = useTranslation()
 
   const disciplineOptions = [
     { value: "all", label: t("common.all_disciplines") },
-    ...DISCIPLINE_OPTIONS.map((opt: any) => ({
+    ...DISCIPLINE_OPTIONS.map((opt) => ({
       value: opt.value,
-      label: t(opt.labelKey)
-    }))
+      label: t(`common.${opt.labelKey}` as "common.discipline_pt"),
+    })),
   ]
 
   const statusOptions = [
@@ -39,16 +38,11 @@ export function ProviderFilters({
 
   return (
     <div className="flex flex-col lg:flex-row items-center gap-4">
-      {/* Search Input */}
-      <div className="relative w-full lg:flex-1">
-        <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground" size={18} />
-        <Input 
-          placeholder={t("portfolio.provider_search_placeholder")} 
-          className="pl-10 h-12 rounded-full border-none bg-white shadow-sm ring-1 ring-slate-200 focus-visible:ring-primary"
-          value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
-        />
-      </div>
+      <SearchInput
+        value={searchTerm}
+        onChange={setSearchTerm}
+        placeholder={t("portfolio.provider_search_placeholder")}
+      />
 
       <div className="flex items-center gap-3 w-full lg:w-auto">
         <FilterPill

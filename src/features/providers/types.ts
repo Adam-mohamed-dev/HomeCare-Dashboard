@@ -53,3 +53,9 @@ export interface ProviderSummary {
   status: string
   utilization: number
 }
+
+export interface ProviderDirectoryEntry extends ProviderSummary {
+  caseloadCurrent: number
+  caseloadMax: number
+  pendingAssignments: number
+}

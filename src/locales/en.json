@@ -73,7 +73,8 @@
     "cases": "Case List",
     "analytics": "Analytics",
     "messages": "Messages",
-    "appointments": "Appointments"
+    "appointments": "Appointments",
+    "workload": "Workload"
   },
   "dashboard": {
     "subtitle": "Your referral pipeline is active today. You have {{count}} urgent evaluations under review.",
@@ -334,5 +335,56 @@
     "sort_distance": "Closest Distance",
     "sort_rating": "Highest Rating",
     "available_on_day": "Available on {{day}}"
+  },
+  "workload": {
+    "mgmt_title": "Workload",
+    "mgmt_desc": "Open items grouped by issue type. Each section uses the same workflow for every row in that group.",
+    "search_placeholder": "Search patient, provider, or case...",
+    "view_case": "View case",
+    "view_provider": "View provider",
+    "no_actions_in_tab": "No open items in this tab.",
+    "group_count": "{{count}} items",
+    "col_issue_type": "Issue type",
+    "all_issue_types": "All issue types",
+    "col_patient": "Patient",
+    "col_provider": "Provider",
+    "col_case": "Case",
+    "col_reported": "Reported",
+    "col_priority": "Priority",
+    "tabs": {
+      "assignments": "Assignments",
+      "visits": "Field Visits",
+      "referrals": "Referrals",
+      "assignments_desc": "Assignment responses pending from providers.",
+      "visits_desc": "Field visit exceptions requiring coordinator follow-up.",
+      "referrals_desc": "Referral pipeline items that need reassignment or escalation."
+    },
+    "severity": {
+      "urgent": "Urgent",
+      "high": "High",
+      "normal": "Normal"
+    },
+    "groups": {
+      "assignment_no_response": "Awaiting provider response",
+      "assignment_no_response_desc": "Assigned to a provider—no accept or decline yet.",
+      "visit_arrival_delay": "Arrival delays",
+      "visit_arrival_delay_desc": "Provider is past the scheduled arrival window.",
+      "visit_patient_not_found": "Patient not found",
+      "visit_patient_not_found_desc": "Provider on site but could not locate the patient.",
+      "visit_patient_unavailable": "Patient unavailable",
+      "visit_patient_unavailable_desc": "Provider arrived; patient not available for the visit.",
+      "referral_declined": "Declined referrals",
+      "referral_declined_desc": "A provider declined the case—needs a new assignment.",
+      "referral_unassigned_urgent": "Urgent unassigned referrals",
+      "referral_unassigned_urgent_desc": "High-priority cases still without a matched provider."
+    },
+    "resolve": {
+      "assignment_no_response": "Follow up",
+      "visit_arrival_delay": "Follow up",
+      "visit_patient_not_found": "Follow up",
+      "visit_patient_unavailable": "Follow up",
+      "referral_declined": "Follow up",
+      "referral_unassigned_urgent": "Follow up"
+    }
   }
 }

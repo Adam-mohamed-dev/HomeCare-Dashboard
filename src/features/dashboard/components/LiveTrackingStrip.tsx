@@ -13,23 +13,15 @@ export function LiveTrackingStrip({ visit }: LiveTrackingStripProps) {
   const { t } = useTranslation('translation')
   const { patient, provider, time, statusKey, statusType, progress } = visit
 
-  const colors = {
-    primary: "text-primary",
-    success: "text-emerald-500",
-    urgent: "text-red-500"
-  }[statusType]
+  const theme = {
+    primary: { text: "text-primary", bg: "bg-primary", border: "border-primary/20" },
+    success: { text: "text-emerald-500", bg: "bg-emerald-500", border: "border-emerald-500/20" },
+    urgent: { text: "text-red-500", bg: "bg-red-500", border: "border-red-500/30" }
+  }[statusType as "primary" | "success" | "urgent"] || { text: "text-slate-500", bg: "bg-slate-500", border: "border-slate-500/20" }
 
-  const bgColors = {
-    primary: "bg-primary",
-    success: "bg-emerald-500",
-    urgent: "bg-red-500"
-  }[statusType]
-
-  const borderColors = {
-    primary: "border-primary/20",
-    success: "border-emerald-500/20",
-    urgent: "border-red-500/30"
-  }[statusType]
+  const colors = theme.text
+  const bgColors = theme.bg
+  const borderColors = theme.border
 
   return (
     <Card className={cn(
@@ -95,7 +87,7 @@ export function LiveTrackingStrip({ visit }: LiveTrackingStripProps) {
             </div>
           </div>
           <div className="w-12 h-12 rounded-[20px] bg-slate-50 flex items-center justify-center text-slate-400 font-bold text-xs border border-slate-100 shrink-0">
-            {patient.name.split(' ').map((n: any) => n[0]).join('')}
+            {patient.name.split(' ').map((n: string) => n[0]).join('')}
           </div>
         </div>
 
