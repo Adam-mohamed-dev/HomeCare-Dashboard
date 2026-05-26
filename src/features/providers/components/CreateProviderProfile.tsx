@@ -26,7 +26,7 @@ export function CreateProviderProfile() {
       npiNumber: "",
       primaryDiscipline: "",
       specializedServices: "",
-      zipCodes: "",
+      zipCodes: [],
       insuranceNetworks: [],
       languagesSpoken: "",
       weeklyCapacity: 0,

@@ -74,7 +74,8 @@
     "analytics": "Analytics",
     "messages": "Messages",
     "appointments": "Appointments",
-    "workload": "Workload"
+    "workload": "Workload",
+    "areas": "Service Areas"
   },
   "dashboard": {
     "subtitle": "Your referral pipeline is active today. You have {{count}} urgent evaluations under review.",
@@ -213,7 +214,7 @@
     "high_priority_desc": "1-2h response",
     "coordinator_note_label": "Coordinator's Note",
     "coordinator_note_placeholder": "Add instructions for the therapist pool...",
-    "providers_notified_est": "{{count}} therapists in your network will be notified immediately.",
+    "providers_notified_est": "{{count}} therapists in your network will be notified.",
     "confirm_broadcast": "Confirm & Broadcast",
     "broadcast_success_title": "Broadcast Sent!",
     "broadcast_success_desc": "The case has been successfully pushed to the bidding pool. {{count}} therapists have been notified.",
@@ -386,5 +387,20 @@
       "referral_declined": "Follow up",
       "referral_unassigned_urgent": "Follow up"
     }
+  },
+  "areas": {
+    "management_desc": "Manage service areas, map zip codes to regions, and monitor coverage density.",
+    "add_new_area": "Add New Area",
+    "search_placeholder": "Search by area name or zip code...",
+    "no_areas_found": "No areas found matching your search.",
+    "clear_filters": "Clear filters",
+    "create_desc": "Create a new service region and map zip codes to it.",
+    "area_name_label": "Area Name",
+    "area_name_placeholder": "e.g. North Region",
+    "zip_code_placeholder": "Enter 5-digit zip code",
+    "add_zip_code": "Add zip code",
+    "save_area": "Save Area",
+    "edit_area": "Edit Area",
+    "edit_desc": "Update the service region details and mapped zip codes."
   }
 }

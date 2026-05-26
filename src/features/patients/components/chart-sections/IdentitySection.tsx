@@ -1,5 +1,6 @@
 import { useTranslation } from "react-i18next"
 import { Input } from "../../../../components/ui/input"
+import { Select } from "../../../../components/ui/select"
 import { cn } from "../../../../lib/utils"
 import type { UseFormRegister, FieldErrors } from "react-hook-form"
 import type { PatientFormData } from "../../schemas/patientSchema"
@@ -16,13 +17,27 @@ export function IdentitySection({ register, errors }: IdentitySectionProps) {
 
   return (
     <FormCard>
-      <FormField label={t("onboarding.full_name_label")} error={errors.fullName}>
-        <Input 
-          {...register("fullName")}
-          placeholder="e.g. Eleanor Vance" 
-          className={cn("h-12 bg-slate-50 border-none rounded-xl", errors.fullName && "ring-2 ring-destructive")} 
-        />
-      </FormField>
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+        <FormField label={t("onboarding.full_name_label")} error={errors.fullName}>
+          <Input 
+            {...register("fullName")}
+            placeholder="e.g. Eleanor Vance" 
+            className={cn("h-12 bg-slate-50 border-none rounded-xl", errors.fullName && "ring-2 ring-destructive")} 
+          />
+        </FormField>
+        
+        <FormField label={t("onboarding.gender_label", { defaultValue: "Gender" })} error={errors.gender}>
+          <Select 
+            {...register("gender")}
+            className={cn(errors.gender && "ring-2 ring-destructive")}
+            defaultValue=""
+          >
+            <option value="" disabled>{t("common.select_gender", { defaultValue: "Select gender..." })}</option>
+            <option value="male">{t("common.male", { defaultValue: "Male" })}</option>
+            <option value="female">{t("common.female", { defaultValue: "Female" })}</option>
+          </Select>
+        </FormField>
+      </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <FormField label={t("common.phone")} error={errors.phone}>
