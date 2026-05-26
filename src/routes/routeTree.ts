@@ -9,6 +9,7 @@ import { Route as casesRoute } from './cases'
 import { Route as caseMatchesRoute } from './cases.$caseId'
 import { Route as messagesRoute } from './messages'
 import { Route as appointmentsRoute } from './appointments'
+import { workloadRoute } from './workload'
 
 export const routeTree = rootRoute.addChildren([
   indexRoute,
@@ -21,4 +22,5 @@ export const routeTree = rootRoute.addChildren([
   caseMatchesRoute,
   messagesRoute,
   appointmentsRoute,
+  workloadRoute,
 ])
