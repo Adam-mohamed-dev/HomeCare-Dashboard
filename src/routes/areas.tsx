@@ -1,9 +1,9 @@
 import { createRoute } from '@tanstack/react-router'
-import { rootRoute } from './__root'
+import { appLayoutRoute } from './_app'
 import { AreasView } from '../features/areas/components/AreasView'
 
-export const Route = createRoute({
-  getParentRoute: () => rootRoute,
+export const areasRoute = createRoute({
+  getParentRoute: () => appLayoutRoute,
   path: '/areas',
   component: AreasView,
 })

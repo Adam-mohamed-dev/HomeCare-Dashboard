@@ -1,9 +1,9 @@
 import { createRoute } from '@tanstack/react-router'
-import { rootRoute } from './__root'
+import { appLayoutRoute } from './_app'
 import { MessagesView } from '../features/messages/components/MessagesView'
 
 export const Route = createRoute({
-  getParentRoute: () => rootRoute,
+  getParentRoute: () => appLayoutRoute,
   path: '/messages',
   component: MessagesView,
 })

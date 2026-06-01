@@ -11,7 +11,6 @@ import {
 } from "lucide-react"
 import { useTranslation } from "react-i18next"
 import { cn } from "../../lib/utils"
-import { UserBadge } from "./UserBadge"
 import { Link } from "@tanstack/react-router"
 
 const navItems = [
@@ -61,21 +60,8 @@ export function Sidebar({ isOpen, onClose }: SidebarProps) {
           </button>
         </div>
 
-        {/* User Profile Section */}
-        <div className="px-8 py-8 flex items-center gap-4">
-          <UserBadge />
-          <div className="flex flex-col min-w-0">
-            <span className="font-bold text-[14px] leading-5 text-brand-dark truncate">
-              {t("common.referral_desk")}
-            </span>
-            <span className="font-normal text-[12px] leading-4 text-text-muted truncate">
-              {t("common.home_care_pt_unit")}
-            </span>
-          </div>
-        </div>
-
         {/* Navigation Menu */}
-        <nav className="flex-1 flex flex-col gap-1 pr-4 rtl:pr-0 rtl:pl-4">
+        <nav className="flex-1 flex flex-col gap-1 pt-6 pr-4 rtl:pr-0 rtl:pl-4">
           {navItems.map((item, index) => (
             <Link
               key={index}

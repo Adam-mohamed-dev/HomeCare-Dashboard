@@ -16,7 +16,7 @@ import { PageContainer } from "../../../components/layout/PageContainer"
 
 export function ProviderPortfolio() {
   const { t } = useTranslation()
-  const { providerId } = useParams({ from: '/providers/$providerId' })
+  const { providerId } = useParams({ from: '/app/providers/$providerId' })
   const [provider, setProvider] = useState<ProviderProfileData | null>(null)
   const [isLoading, setIsLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)

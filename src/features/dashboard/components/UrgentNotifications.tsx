@@ -30,7 +30,7 @@ export function UrgentNotifications() {
       <button 
         onClick={() => setIsOpen(!isOpen)}
         className={cn(
-          "w-10 h-10 sm:w-12 sm:h-12 rounded-full flex items-center justify-center transition-all relative group",
+          "w-10 h-10 sm:w-12 sm:h-12 rounded-full flex items-center justify-center transition-all relative group cursor-pointer",
           isOpen ? "bg-primary/10 text-primary" : "bg-slate-50 text-slate-400 hover:bg-slate-100 hover:text-slate-600"
         )}
       >

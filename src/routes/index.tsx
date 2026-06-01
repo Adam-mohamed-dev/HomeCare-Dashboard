@@ -1,16 +1,14 @@
 import { createRoute } from '@tanstack/react-router'
-import { rootRoute } from './__root'
+import { appLayoutRoute } from './_app'
 import { useTranslation } from 'react-i18next'
 import { PageContainer } from '../components/layout/PageContainer'
-
-// Modular Feature Components
 import { StatsGrid } from '../features/dashboard/components/StatsGrid'
 import { ActivityFeed } from '../features/dashboard/components/ActivityFeed'
 import { LiveMonitor } from '../features/dashboard/components/LiveMonitor'
 import { useDashboardEvents } from '../features/dashboard/hooks/useDashboardEvents'
 
 export const indexRoute = createRoute({
-  getParentRoute: () => rootRoute,
+  getParentRoute: () => appLayoutRoute,
   path: '/',
   component: Dashboard,
 })

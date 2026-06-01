@@ -1,9 +1,9 @@
 import { createRoute } from '@tanstack/react-router'
-import { rootRoute } from './__root'
+import { appLayoutRoute } from './_app'
 import { CreateProviderProfile } from '../features/providers/components/CreateProviderProfile'
 
 export const providersNewRoute = createRoute({
-  getParentRoute: () => rootRoute,
+  getParentRoute: () => appLayoutRoute,
   path: '/providers/new',
   component: () => <CreateProviderProfile />,
 })

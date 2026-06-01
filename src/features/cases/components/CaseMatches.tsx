@@ -12,7 +12,7 @@ import { useState } from "react"
 
 export function CaseMatches() {
   const { t } = useTranslation('translation')
-  const { caseId } = useParams({ from: '/cases/$caseId' })
+  const { caseId } = useParams({ from: '/app/cases/$caseId' })
 
   // Filter States
   const [searchTerm, setSearchTerm] = useState("")
