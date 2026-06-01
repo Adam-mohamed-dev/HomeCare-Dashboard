@@ -5,58 +5,17 @@ import { PatientFilters } from "./PatientFilters"
 import { PatientTable } from "./PatientTable"
 import { PatientPagination } from "./PatientPagination"
 import { PageContainer } from "../../../components/layout/PageContainer"
-
-const initialPatients = [
-  {
-    name: "Eleanor Miller",
-    initials: "EM",
-    mrn: "882-192",
-    dov: "Oct 12",
-    status: "Lead",
-    statusVariant: "default" as const, 
-    assignedPt: "Dr. Julian Vance",
-    assignedPtImg: "https://i.pravatar.cc/150?u=julian"
-  },
-  {
-    name: "Robert Jenkins",
-    initials: "RJ",
-    mrn: "412-990",
-    dov: "Oct 15",
-    status: "Active",
-    statusVariant: "info" as const,
-    assignedPt: "Sarah Thorne",
-    assignedPtImg: "https://i.pravatar.cc/150?u=sarah"
-  },
-  {
-    name: "Alice Khowani",
-    initials: "AK",
-    mrn: "701-223",
-    dov: "Sep 28",
-    status: "Inactive",
-    statusVariant: "secondary" as const,
-    assignedPt: "Unassigned",
-    assignedPtImg: null
-  },
-  {
-    name: "Marcus Bennett",
-    initials: "MB",
-    mrn: "902-115",
-    dov: "Oct 18",
-    status: "Active",
-    statusVariant: "info" as const,
-    assignedPt: "Dr. Julian Vance",
-    assignedPtImg: "https://i.pravatar.cc/150?u=julian"
-  }
-]
+import { usePatientStore } from "../store/usePatientStore"
 
 export function PatientManagement() {
   const navigate = useNavigate()
+  const patients = usePatientStore((s) => s.patients)
   const [searchTerm, setSearchTerm] = useState("")
   const [statusFilter, setStatusFilter] = useState("All")
   const [sortBy, setSortBy] = useState("name")
 
   const filteredAndSortedPatients = useMemo(() => {
-    let result = initialPatients.filter(patient => {
+    let result = patients.filter(patient => {
       const matchesSearch = patient.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
                           patient.mrn.includes(searchTerm)
       const matchesStatus = statusFilter === "All" || patient.status === statusFilter
@@ -72,7 +31,7 @@ export function PatientManagement() {
     })
 
     return result
-  }, [searchTerm, statusFilter, sortBy])
+  }, [searchTerm, statusFilter, sortBy, patients])
 
   return (
     <PageContainer size="standard" className="py-8 flex flex-col gap-8">

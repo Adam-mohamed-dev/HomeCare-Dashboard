@@ -79,17 +79,21 @@ export function LiveTrackingStrip({ visit }: LiveTrackingStripProps) {
         </div>
 
         {/* Patient Profile */}
-        <div className="flex items-center gap-4 min-w-[180px] justify-end text-right">
+        <Link
+          to="/patients/$patientId"
+          params={{ patientId: patient.id! }}
+          className="flex items-center gap-4 min-w-[180px] justify-end text-right group/patient transition-all hover:-translate-x-1"
+        >
           <div className="flex flex-col min-w-0">
-            <h4 className="text-sm font-bold text-slate-900 truncate">{patient.name}</h4>
+            <h4 className="text-sm font-bold text-slate-900 group-hover/patient:text-primary transition-colors truncate">{patient.name}</h4>
             <div className="flex items-center gap-2 justify-end mt-0.5">
               <span className="text-[10px] font-medium text-slate-500 tabular-nums">{patient.phone}</span>
             </div>
           </div>
-          <div className="w-12 h-12 rounded-[20px] bg-slate-50 flex items-center justify-center text-slate-400 font-bold text-xs border border-slate-100 shrink-0">
+          <div className="w-12 h-12 rounded-[20px] bg-slate-50 flex items-center justify-center text-slate-400 font-bold text-xs border border-slate-100 shrink-0 group-hover/patient:ring-2 group-hover/patient:ring-primary/20 transition-all">
             {patient.name.split(' ').map((n: string) => n[0]).join('')}
           </div>
-        </div>
+        </Link>
 
       </div>
     </Card>

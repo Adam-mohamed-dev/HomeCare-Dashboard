@@ -2,6 +2,7 @@ export interface Case {
   id: string
   patientName: string
   patientInitials: string
+  patientId: string
   referredDays: number
   locationZip: string
   requiredDiscipline: string

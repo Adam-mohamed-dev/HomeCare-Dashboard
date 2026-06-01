@@ -4,6 +4,7 @@ import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { patientSchema } from "../schemas/patientSchema"
 import type { PatientFormData } from "../schemas/patientSchema"
+import { usePatientStore } from "../store/usePatientStore"
 
 // Shared Components
 import { FeatureHeader } from "../../../components/layout/FeatureHeader"
@@ -20,6 +21,7 @@ import { IntakeDocsSection } from "./chart-sections/IntakeDocsSection"
 export function CreatePatientChart() {
   const { t } = useTranslation()
   const navigate = useNavigate()
+  const addPatient = usePatientStore((s) => s.addPatient)
   
   const {
     register,
@@ -39,8 +41,32 @@ export function CreatePatientChart() {
   const currentSlots = watch("timingSlots")
 
   const onFormSubmit = (data: PatientFormData) => {
-    console.log("Creating Patient Chart:", data)
-    navigate({ to: "/patients" })
+    const id = data.fullName.toLowerCase().replace(/\s+/g, '-')
+    addPatient({
+      id,
+      fullName: data.fullName,
+      mrn: Math.random().toString(36).substring(2, 8).toUpperCase(),
+      gender: data.gender,
+      phone: data.phone,
+      email: data.email,
+      address: data.address,
+      city: data.city,
+      state: data.state,
+      zipCode: data.zipCode,
+      communicationMode: data.communicationMode,
+      timingSlots: data.timingSlots,
+      status: 'Lead',
+      photoUrl: '',
+      primaryDiagnosis: 'Pending evaluation',
+      secondaryDiagnoses: [],
+      assignedPt: 'Unassigned',
+      assignedPtImg: '',
+      emergencyContact: { name: '', relation: '', phone: '' },
+      insurance: { provider: 'Pending', memberId: '', groupNumber: '' },
+      visits: { scheduled: 0, completed: 0, missed: 0 },
+      notes: { date: new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }).toUpperCase().replace(',', ''), author: 'COORDINATOR', content: 'Patient chart created.' },
+    })
+    navigate({ to: '/patients/$patientId', params: { patientId: id } })
   }
 
   const handleCancel = () => {

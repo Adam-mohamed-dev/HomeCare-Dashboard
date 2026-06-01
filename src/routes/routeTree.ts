@@ -5,6 +5,7 @@ import { appLayoutRoute } from './_app'
 import { indexRoute } from './index'
 import { patientsRoute } from './patients'
 import { createPatientRoute } from './patients.new'
+import { Route as patientPortfolioRoute } from './patients.$patientId'
 import { providersRoute } from './providers'
 import { providersNewRoute } from './providers.new'
 import { Route as providersPortfolioRoute } from './providers.$providerId'
@@ -21,6 +22,7 @@ export const routeTree = rootRoute.addChildren([
     indexRoute,
     patientsRoute,
     createPatientRoute,
+    patientPortfolioRoute,
     providersRoute,
     providersNewRoute,
     providersPortfolioRoute,

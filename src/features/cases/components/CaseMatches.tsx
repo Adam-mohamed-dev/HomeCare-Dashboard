@@ -1,5 +1,6 @@
 import { useTranslation } from "react-i18next"
 import { useParams, Link } from "@tanstack/react-router"
+import { ChevronRight } from "lucide-react"
 import { FeatureHeader } from "../../../components/layout/FeatureHeader"
 import { useMemo } from "react"
 import { mockCases } from "../data/mockCases"
@@ -55,6 +56,18 @@ export function CaseMatches() {
         title={t("cases.review_matches_title", { id: caseId })}
         description={t("cases.review_matches_subtitle", { zip: currentCase.locationZip })}
       />
+
+      <div className="flex items-center gap-2 text-[13px] font-medium text-slate-400 -mt-4">
+        <Link
+          to="/patients/$patientId"
+          params={{ patientId: currentCase.patientId }}
+          className="flex items-center gap-2 hover:text-primary transition-colors group"
+        >
+          <span className="font-bold text-slate-900 group-hover:text-primary transition-colors">{currentCase.patientName}</span>
+        </Link>
+        <ChevronRight size={14} />
+        <span className="text-slate-600">{currentCase.id}</span>
+      </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
         {/* Left Column: Recommendations */}

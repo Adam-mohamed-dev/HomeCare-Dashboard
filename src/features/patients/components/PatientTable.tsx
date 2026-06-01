@@ -1,4 +1,5 @@
 import { useTranslation } from "react-i18next"
+import { useNavigate } from "@tanstack/react-router"
 import { UserAvatar } from "../../../components/ui/user-avatar"
 import { Button } from "../../../components/ui/button"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "../../../components/ui/table"
@@ -12,6 +13,7 @@ interface PatientTableProps {
 
 export function PatientTable({ patients }: PatientTableProps) {
   const { t } = useTranslation()
+  const navigate = useNavigate()
 
   return (
     <div className="rounded-3xl border border-slate-100 bg-white shadow-sm overflow-hidden">
@@ -27,7 +29,11 @@ export function PatientTable({ patients }: PatientTableProps) {
         <TableBody>
           {patients.length > 0 ? (
             patients.map((patient) => (
-              <TableRow key={patient.mrn} className="border-slate-50 hover:bg-slate-50/30 transition-colors">
+              <TableRow
+                key={patient.id}
+                className="border-slate-50 hover:bg-slate-50/30 transition-colors cursor-pointer"
+                onClick={() => navigate({ to: '/patients/$patientId', params: { patientId: patient.id } })}
+              >
                 <TableCell className="px-8 py-4">
                   <div className="flex items-center gap-4">
                     <UserAvatar 

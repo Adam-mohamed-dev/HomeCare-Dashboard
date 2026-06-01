@@ -29,7 +29,7 @@ export interface DashboardActivityEvent {
 export const mockLiveVisits: LiveVisit[] = [
   {
     id: "1",
-    patient: { name: "Anita Lopez", phone: "(555) 012-3456" },
+    patient: { name: "Anita Lopez", phone: "(555) 012-3456", id: "anita-lopez" },
     provider: { name: "Dr. James Wilson", image: "https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?auto=format&fit=crop&q=80&w=200", phone: "(555) 987-6543", id: "dr-james-wilson" },
     statusKey: "common.en_route",
     time: "12:15 PM",
@@ -38,7 +38,7 @@ export const mockLiveVisits: LiveVisit[] = [
   },
   {
     id: "2",
-    patient: { name: "Robert Jenkins", phone: "(555) 234-5678" },
+    patient: { name: "Robert Jenkins", phone: "(555) 234-5678", id: "robert-jenkins" },
     provider: { name: "Martha Graham", image: "https://images.unsplash.com/photo-1594824476967-48c8b964273f?auto=format&fit=crop&q=80&w=200", phone: "(555) 876-5432", id: "martha-graham" },
     statusKey: "common.en_route",
     time: "1:30 PM",
@@ -47,7 +47,7 @@ export const mockLiveVisits: LiveVisit[] = [
   },
   {
     id: "3",
-    patient: { name: "Sarah Connor", phone: "(555) 345-6789" },
+    patient: { name: "Sarah Connor", phone: "(555) 345-6789", id: "sarah-connor" },
     provider: { name: "John Smith", image: "https://images.unsplash.com/photo-1622253692010-333f2da6031d?auto=format&fit=crop&q=80&w=200", phone: "(555) 765-4321", id: "john-smith" },
     statusKey: "common.active",
     time: "11:00 AM",

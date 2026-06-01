@@ -53,19 +53,51 @@ export function WorkloadTable({ events }: WorkloadTableProps) {
                   <IssueTypeBadge category={event.category} />
                 </TableCell>
                 <TableCell className="py-4">
-                  <div className="flex items-center gap-3">
-                    <UserAvatar
-                      name={event.patientName}
-                      initials={event.patientInitials}
-                      className="h-9 w-9 text-[12px]"
-                    />
-                    <span className="font-semibold text-slate-900">
-                      {event.patientName}
-                    </span>
-                  </div>
+                  {event.patientId ? (
+                    <Link
+                      to="/patients/$patientId"
+                      params={{ patientId: event.patientId }}
+                      className="flex items-center gap-3 group/patient"
+                    >
+                      <UserAvatar
+                        name={event.patientName}
+                        initials={event.patientInitials}
+                        className="h-9 w-9 text-[12px] transition-all group-hover/patient:ring-2 group-hover/patient:ring-primary/20"
+                      />
+                      <span className="font-semibold text-slate-900 group-hover/patient:text-primary transition-colors">
+                        {event.patientName}
+                      </span>
+                    </Link>
+                  ) : (
+                    <div className="flex items-center gap-3">
+                      <UserAvatar
+                        name={event.patientName}
+                        initials={event.patientInitials}
+                        className="h-9 w-9 text-[12px]"
+                      />
+                      <span className="font-semibold text-slate-900">
+                        {event.patientName}
+                      </span>
+                    </div>
+                  )}
                 </TableCell>
                 <TableCell className="py-4">
-                  {event.providerName ? (
+                  {event.providerName && event.providerId ? (
+                    <Link
+                      to="/providers/$providerId"
+                      params={{ providerId: event.providerId }}
+                      className="flex items-center gap-3 group/provider"
+                    >
+                      <UserAvatar
+                        name={event.providerName}
+                        image={event.providerImage}
+                        className="h-8 w-8 ring-0 transition-all group-hover/provider:ring-2 group-hover/provider:ring-primary/20"
+                      />
+                      <span className="text-sm font-medium text-slate-700 group-hover/provider:text-primary transition-colors">
+                        {event.providerName}
+                      </span>
+                    </Link>
+                  ) : event.providerName ? (
                     <div className="flex items-center gap-3">
                       <UserAvatar
                         name={event.providerName}
@@ -86,39 +118,12 @@ export function WorkloadTable({ events }: WorkloadTableProps) {
                   </span>
                 </TableCell>
                 <TableCell className="px-6 py-4 text-end">
-                  <div className="flex items-center justify-end gap-4">
-                    {event.caseId ? (
-                      <Link
-                        to="/cases/$caseId"
-                        params={{ caseId: event.caseId }}
-                      >
-                        <Button
-                          variant="link"
-                          className="text-slate-500 font-semibold p-0 h-auto text-xs hover:text-primary"
-                        >
-                          {t("workload.view_case")}
-                        </Button>
-                      </Link>
-                    ) : event.providerId ? (
-                      <Link
-                        to="/providers/$providerId"
-                        params={{ providerId: event.providerId }}
-                      >
-                        <Button
-                          variant="link"
-                          className="text-slate-500 font-semibold p-0 h-auto text-xs hover:text-primary"
-                        >
-                          {t("workload.view_provider")}
-                        </Button>
-                      </Link>
-                    ) : null}
-                    <Button
-                      variant="link"
-                      className="text-primary font-bold p-0 h-auto hover:no-underline"
-                    >
-                      {t(`workload.resolve.${event.category}`)}
-                    </Button>
-                  </div>
+                  <Button
+                    variant="link"
+                    className="text-primary font-bold p-0 h-auto hover:no-underline"
+                  >
+                    {t(`workload.resolve.${event.category}`)}
+                  </Button>
                 </TableCell>
               </TableRow>
             ))

@@ -19,6 +19,7 @@ export interface ActionEvent {
   occurredHoursAgo: number
   patientName: string
   patientInitials: string
+  patientId?: string
   providerName?: string
   providerImage?: string
   providerId?: string

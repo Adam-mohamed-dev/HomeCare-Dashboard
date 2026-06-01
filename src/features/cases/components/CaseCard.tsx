@@ -22,15 +22,19 @@ export function CaseCard({ caseData }: CaseCardProps) {
     <div className="bg-white rounded-3xl p-6 sm:p-8 flex flex-col gap-6 shadow-sm border border-slate-100">
       {/* Top Header Section */}
       <div className="flex justify-between items-start">
-        <div className="flex items-center gap-4">
+        <Link
+          to="/patients/$patientId"
+          params={{ patientId: caseData.patientId }}
+          className="flex items-center gap-4 group/patient"
+        >
           <UserAvatar 
             name={caseData.patientName} 
             initials={caseData.patientInitials}
-            className="h-12 w-12 sm:h-14 sm:w-14" 
+            className="h-12 w-12 sm:h-14 sm:w-14 transition-all group-hover/patient:ring-2 group-hover/patient:ring-primary/20" 
             fallbackClassName="text-lg"
           />
           <div className="flex flex-col">
-            <h3 className="text-xl font-bold text-slate-900">{caseData.patientName}</h3>
+            <h3 className="text-xl font-bold text-slate-900 group-hover/patient:text-primary transition-colors">{caseData.patientName}</h3>
             {caseData.description ? (
               <span className="text-sm text-slate-500">
                 {caseData.description} &bull; {t("cases.id_label")}: {caseData.id}
@@ -39,7 +43,7 @@ export function CaseCard({ caseData }: CaseCardProps) {
               <span className="text-sm text-slate-500">{t("cases.id_label")}: {caseData.id}</span>
             )}
           </div>
-        </div>
+        </Link>
         <span className="text-sm font-medium text-slate-400">
           {getReferredText()}
         </span>
