@@ -1,7 +1,6 @@
 import { useState, useMemo } from "react"
 import { useTranslation } from "react-i18next"
-import { Plus } from "lucide-react"
-import { Button } from "../../../components/ui/button"
+
 import { CaseFilters } from "./CaseFilters"
 import { CaseCard } from "./CaseCard"
 import { mockCases } from "../data/mockCases"

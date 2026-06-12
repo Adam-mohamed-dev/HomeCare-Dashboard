@@ -57,7 +57,7 @@ function ZipCodeSelector({ currentZips, onChange }: { currentZips: string[], onC
                     type="checkbox"
                     ref={input => { if (input) input.indeterminate = isIndeterminate }}
                     checked={isAllSelected}
-                    onChange={() => toggleRegionZips(region.zips, isAllSelected)}
+                    onChange={() => toggleRegionZips([...region.zips], isAllSelected)}
                     className="w-5 h-5 rounded border-slate-300 text-primary focus:ring-primary"
                   />
                   <div className="flex flex-col">
