@@ -8,21 +8,12 @@ import { FormField } from "../../../../components/onboarding/FormField"
 
 interface OutreachSectionProps {
   currentCommMode: "text" | "phone" | "email"
-  currentSlots: string[]
   errors: FieldErrors<PatientFormData>
   setValue: UseFormSetValue<PatientFormData>
 }
 
-export function OutreachSection({ currentCommMode, currentSlots, errors, setValue }: OutreachSectionProps) {
+export function OutreachSection({ currentCommMode, errors, setValue }: OutreachSectionProps) {
   const { t } = useTranslation('translation')
-  const timingSlots = ["8AM - 10AM", "10AM - 12PM", "1PM - 3PM", "3PM - 5PM"]
-
-  const toggleSlot = (slot: string) => {
-    const newSlots = currentSlots.includes(slot)
-      ? currentSlots.filter(s => s !== slot)
-      : [...currentSlots, slot]
-    setValue("timingSlots", newSlots, { shouldValidate: true })
-  }
 
   return (
     <FormCard className="gap-8">
@@ -61,24 +52,6 @@ export function OutreachSection({ currentCommMode, currentSlots, errors, setValu
             <Mail size={24} />
             <span className="text-[13px] font-bold">{t("common.email")}</span>
           </button>
-        </div>
-      </FormField>
-
-      <FormField label={t("onboarding.pref_timing_slots")} error={errors.timingSlots}>
-        <div className="flex flex-wrap gap-3">
-          {timingSlots.map(slot => (
-            <button
-              key={slot}
-              type="button"
-              onClick={() => toggleSlot(slot)}
-              className={cn(
-                "px-6 py-3 rounded-full text-[13px] font-bold transition-all",
-                currentSlots.includes(slot) ? "bg-primary text-white" : "bg-slate-50 text-slate-400"
-              )}
-            >
-              {slot}
-            </button>
-          ))}
         </div>
       </FormField>
     </FormCard>

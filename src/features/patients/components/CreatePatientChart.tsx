@@ -18,55 +18,88 @@ import { ResidenceSection } from "./chart-sections/ResidenceSection"
 import { OutreachSection } from "./chart-sections/OutreachSection"
 import { IntakeDocsSection } from "./chart-sections/IntakeDocsSection"
 
-export function CreatePatientChart() {
+interface CreatePatientChartProps {
+  patientId?: string
+}
+
+export function CreatePatientChart({ patientId }: CreatePatientChartProps) {
   const { t } = useTranslation()
   const navigate = useNavigate()
   const addPatient = usePatientStore((s) => s.addPatient)
-  
+  const updatePatient = usePatientStore((s) => s.updatePatient)
+  const getProfile = usePatientStore((s) => s.getProfile)
+  const isEdit = !!patientId
+  const existingProfile = isEdit ? getProfile(patientId!) : undefined
+
   const {
     register,
     handleSubmit,
     formState: { errors, isSubmitting },
     setValue,
-    watch
+    watch,
   } = useForm<PatientFormData>({
     resolver: zodResolver(patientSchema),
-    defaultValues: {
+    defaultValues: existingProfile ? {
+      fullName: existingProfile.fullName,
+      gender: existingProfile.gender as "male" | "female",
+      phone: existingProfile.phone,
+      email: existingProfile.email,
+      address: existingProfile.address,
+      city: existingProfile.city,
+      state: existingProfile.state,
+      zipCode: existingProfile.zipCode,
+      communicationMode: existingProfile.communicationMode as "text" | "phone" | "email",
+      insuranceProvider: existingProfile.insurance.provider,
+    } : {
       communicationMode: "text",
-      timingSlots: ["8AM - 10AM"]
     }
   })
 
   const currentCommMode = watch("communicationMode")
-  const currentSlots = watch("timingSlots")
 
   const onFormSubmit = (data: PatientFormData) => {
-    const id = data.fullName.toLowerCase().replace(/\s+/g, '-')
-    addPatient({
-      id,
-      fullName: data.fullName,
-      mrn: Math.random().toString(36).substring(2, 8).toUpperCase(),
-      gender: data.gender,
-      phone: data.phone,
-      email: data.email,
-      address: data.address,
-      city: data.city,
-      state: data.state,
-      zipCode: data.zipCode,
-      communicationMode: data.communicationMode,
-      timingSlots: data.timingSlots,
-      status: 'Lead',
-      photoUrl: '',
-      primaryDiagnosis: 'Pending evaluation',
-      secondaryDiagnoses: [],
-      assignedPt: 'Unassigned',
-      assignedPtImg: '',
-      emergencyContact: { name: '', relation: '', phone: '' },
-      insurance: { provider: 'Pending', memberId: '', groupNumber: '' },
-      visits: { scheduled: 0, completed: 0, missed: 0 },
-      notes: { date: new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }).toUpperCase().replace(',', ''), author: 'COORDINATOR', content: 'Patient chart created.' },
-    })
-    navigate({ to: '/patients/$patientId', params: { patientId: id } })
+    if (isEdit && existingProfile) {
+      updatePatient({
+        ...existingProfile,
+        fullName: data.fullName,
+        gender: data.gender,
+        phone: data.phone,
+        email: data.email,
+        address: data.address,
+        city: data.city,
+        state: data.state,
+        zipCode: data.zipCode,
+        communicationMode: data.communicationMode,
+        insurance: { ...existingProfile.insurance, provider: data.insuranceProvider },
+      })
+      navigate({ to: '/patients/$patientId', params: { patientId: patientId! } })
+    } else {
+      const id = data.fullName.toLowerCase().replace(/\s+/g, '-')
+      addPatient({
+        id,
+        fullName: data.fullName,
+        mrn: Math.random().toString(36).substring(2, 8).toUpperCase(),
+        gender: data.gender,
+        phone: data.phone,
+        email: data.email,
+        address: data.address,
+        city: data.city,
+        state: data.state,
+        zipCode: data.zipCode,
+        communicationMode: data.communicationMode,
+        status: 'Lead',
+        photoUrl: '',
+        primaryDiagnosis: 'Pending evaluation',
+        secondaryDiagnoses: [],
+        assignedPt: 'Unassigned',
+        assignedPtImg: '',
+        emergencyContact: { name: '', relation: '', phone: '' },
+        insurance: { provider: data.insuranceProvider, memberId: '', groupNumber: '' },
+        visits: { scheduled: 0, completed: 0, missed: 0 },
+        notes: { date: new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }).toUpperCase().replace(',', ''), author: 'COORDINATOR', content: 'Patient chart created.' },
+      })
+      navigate({ to: '/patients/$patientId', params: { patientId: id } })
+    }
   }
 
   const handleCancel = () => {
@@ -79,9 +112,9 @@ export function CreatePatientChart() {
         <FeatureHeader 
           breadcrumbParent={t("nav.patients")}
           breadcrumbParentLink="/patients"
-          breadcrumbCurrent={t("onboarding.patient.new_patient_breadcrumb")}
-          title={t("onboarding.patient.create_chart_title")}
-          description={t("onboarding.patient.create_chart_desc")}
+          breadcrumbCurrent={isEdit ? t("onboarding.patient.edit_chart_breadcrumb") : t("onboarding.patient.new_patient_breadcrumb")}
+          title={isEdit ? t("onboarding.patient.edit_chart_title") : t("onboarding.patient.create_chart_title")}
+          description={isEdit ? t("onboarding.patient.edit_chart_desc") : t("onboarding.patient.create_chart_desc")}
         />
 
         <div className="flex flex-col gap-16">
@@ -96,7 +129,6 @@ export function CreatePatientChart() {
           <FormSection title={t("onboarding.sections.outreach_strategy")} description={t("onboarding.sections.outreach_strategy_desc")}>
             <OutreachSection 
               currentCommMode={currentCommMode} 
-              currentSlots={currentSlots} 
               errors={errors} 
               setValue={setValue} 
             />
@@ -109,7 +141,7 @@ export function CreatePatientChart() {
                 onSave={handleSubmit(onFormSubmit)} 
                 onCancel={handleCancel} 
                 isSubmitting={isSubmitting}
-                submitLabel={t("onboarding.patient.create_chart_btn")}
+                submitLabel={isEdit ? t("onboarding.patient.edit_chart_btn") : t("onboarding.patient.create_chart_btn")}
               />
             </div>
           </FormSection>

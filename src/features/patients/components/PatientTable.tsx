@@ -1,9 +1,13 @@
+import { useState } from "react"
 import { useTranslation } from "react-i18next"
 import { useNavigate } from "@tanstack/react-router"
+import { Eye, Pencil, Trash2 } from "lucide-react"
 import { UserAvatar } from "../../../components/ui/user-avatar"
 import { Button } from "../../../components/ui/button"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "../../../components/ui/table"
+import { ConfirmDialog } from "../../../components/ui/confirm-dialog"
 import { StatusPill } from "../../../components/StatusPill"
+import { usePatientStore } from "../store/usePatientStore"
 
 import type { Patient } from "../types"
 
@@ -14,6 +18,8 @@ interface PatientTableProps {
 export function PatientTable({ patients }: PatientTableProps) {
   const { t } = useTranslation()
   const navigate = useNavigate()
+  const removePatient = usePatientStore((s) => s.removePatient)
+  const [deleteTarget, setDeleteTarget] = useState<Patient | null>(null)
 
   return (
     <div className="rounded-3xl border border-slate-100 bg-white shadow-sm overflow-hidden">
@@ -69,9 +75,44 @@ export function PatientTable({ patients }: PatientTableProps) {
                   </div>
                 </TableCell>
                 <TableCell className="px-8 py-4 text-end">
-                  <Button variant="link" className="text-primary font-bold p-0 h-auto hover:no-underline hover:cursor-pointer">
-                    {t("patients.view_chart")}
-                  </Button>
+                  <div className="flex items-center justify-end gap-1">
+                    <Button
+                      variant="ghost"
+                      size="icon"
+                      className="h-8 w-8 text-slate-400 hover:text-primary"
+                      title="View"
+                      onClick={(e) => {
+                        e.stopPropagation()
+                        navigate({ to: '/patients/$patientId', params: { patientId: patient.id } })
+                      }}
+                    >
+                      <Eye size={16} />
+                    </Button>
+                    <Button
+                      variant="ghost"
+                      size="icon"
+                      className="h-8 w-8 text-slate-400 hover:text-primary"
+                      title="Edit"
+                      onClick={(e) => {
+                        e.stopPropagation()
+                        navigate({ to: '/patients/$patientId/edit', params: { patientId: patient.id } })
+                      }}
+                    >
+                      <Pencil size={16} />
+                    </Button>
+                    <Button
+                      variant="ghost"
+                      size="icon"
+                      className="h-8 w-8 text-slate-400 hover:text-destructive"
+                      title="Delete"
+                      onClick={(e) => {
+                        e.stopPropagation()
+                        setDeleteTarget(patient)
+                      }}
+                    >
+                      <Trash2 size={16} />
+                    </Button>
+                  </div>
                 </TableCell>
               </TableRow>
             ))
@@ -84,6 +125,19 @@ export function PatientTable({ patients }: PatientTableProps) {
           )}
         </TableBody>
       </Table>
+
+      <ConfirmDialog
+        open={deleteTarget !== null}
+        onOpenChange={(open) => { if (!open) setDeleteTarget(null) }}
+        title="Delete Patient"
+        description={`Are you sure you want to delete ${deleteTarget?.name ?? "this patient"}? This action cannot be undone.`}
+        confirmLabel="Delete"
+        destructive
+        onConfirm={() => {
+          if (deleteTarget) removePatient(deleteTarget.id)
+          setDeleteTarget(null)
+        }}
+      />
     </div>
   )
 }

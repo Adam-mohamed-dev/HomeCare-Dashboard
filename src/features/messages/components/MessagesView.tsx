@@ -25,20 +25,25 @@ export function MessagesView() {
   return (
     <PageContainer size="full" className="py-8">
       <div className="flex h-[calc(100vh-140px)] bg-white rounded-[32px] overflow-hidden border border-slate-100 shadow-sm">
-        <ChatSidebar 
-          activeTab={activeTab}
-          onTabChange={setActiveTab}
-          chats={filteredChats}
-          selectedChatId={selectedChatId}
-          onChatSelect={setSelectedChatId}
-        />
+        <div className={`${selectedChatId ? 'hidden lg:flex' : 'flex'} w-full lg:w-80 shrink-0`}>
+          <ChatSidebar 
+            activeTab={activeTab}
+            onTabChange={setActiveTab}
+            chats={filteredChats}
+            selectedChatId={selectedChatId}
+            onChatSelect={setSelectedChatId}
+          />
+        </div>
 
-        <ChatWindow 
-          chat={selectedChat}
-          message={message}
-          onMessageChange={setMessage}
-          onSend={handleSendMessage}
-        />
+        <div className={`${!selectedChatId ? 'hidden lg:flex' : 'flex'} flex-1 min-w-0`}>
+          <ChatWindow 
+            chat={selectedChat}
+            message={message}
+            onMessageChange={setMessage}
+            onSend={handleSendMessage}
+            onBack={() => setSelectedChatId(null)}
+          />
+        </div>
       </div>
     </PageContainer>
   )

@@ -37,6 +37,7 @@ export function ResidenceSection({ register, errors }: ResidenceSectionProps) {
         <FormField label={t("onboarding.state")} error={errors.state}>
           <Select {...register("state")} className={cn(errors.state && "ring-2 ring-destructive")}>
             <option value="">Select State</option>
+            <option value="CA">California</option>
             <option value="NC">North Carolina</option>
           </Select>
         </FormField>

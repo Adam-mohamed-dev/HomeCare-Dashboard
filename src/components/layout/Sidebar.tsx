@@ -7,7 +7,8 @@ import {
   X,
   MessageSquare,
   Calendar,
-  MapPinned
+  MapPinned,
+  ShieldCheck
 } from "lucide-react"
 import { useTranslation } from "react-i18next"
 import { cn } from "../../lib/utils"
@@ -22,6 +23,7 @@ const navItems = [
   { icon: Calendar, labelKey: "nav.appointments", to: "/appointments" },
   { icon: MapPinned, labelKey: "nav.areas", to: "/areas" },
   { icon: Gauge, labelKey: "nav.workload", to: "/workload" },
+  { icon: ShieldCheck, labelKey: "nav.insurances", to: "/insurances" },
 ]
 
 interface SidebarProps {

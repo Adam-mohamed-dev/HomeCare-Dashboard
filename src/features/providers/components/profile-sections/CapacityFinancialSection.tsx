@@ -24,7 +24,6 @@ export function CapacityFinancialSection() {
       <FormField 
         label={t("onboarding.capacity_label")} 
         error={errors.weeklyCapacity}
-        description={t("onboarding.capacity_desc", { count: 35 })}
       >
         <Input 
           {...register("weeklyCapacity", { valueAsNumber: true })}

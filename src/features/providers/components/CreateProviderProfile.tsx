@@ -4,6 +4,7 @@ import { FormProvider, useForm, type SubmitHandler } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { providerSchema, type ProviderFormData } from "../schemas/providerSchema"
 import { getEmptyWeeklyAvailability } from "../constants"
+import { useProviderStore } from "../store/useProviderStore"
 import { AvailabilityScheduleSection } from "./profile-sections/AvailabilityScheduleSection"
 
 import { FeatureHeader } from "../../../components/layout/FeatureHeader"
@@ -15,13 +16,22 @@ import { CapacityFinancialSection } from "./profile-sections/CapacityFinancialSe
 import { ContactInfoSection } from "./profile-sections/ContactInfoSection"
 import { PageContainer } from "../../../components/layout/PageContainer"
 
-export function CreateProviderProfile() {
+interface CreateProviderProfileProps {
+  providerId?: string
+}
+
+export function CreateProviderProfile({ providerId }: CreateProviderProfileProps) {
   const { t } = useTranslation('translation')
   const navigate = useNavigate()
+  const addProvider = useProviderStore((s) => s.addProvider)
+  const updateProvider = useProviderStore((s) => s.updateProvider)
+  const getProfile = useProviderStore((s) => s.getProfile)
+  const isEdit = !!providerId
+  const existingProfile = isEdit ? getProfile(providerId!) : undefined
 
   const methods = useForm({
     resolver: zodResolver(providerSchema),
-    defaultValues: {
+    defaultValues: existingProfile ?? {
       fullName: "",
       npiNumber: "",
       primaryDiscipline: "",
@@ -45,8 +55,13 @@ export function CreateProviderProfile() {
   } = methods
 
   const onFormSubmit: SubmitHandler<ProviderFormData> = (data) => {
-    console.log("Creating Provider Profile:", data)
-    navigate({ to: "/providers" })
+    if (isEdit && existingProfile) {
+      updateProvider(providerId!, data)
+      navigate({ to: '/providers/$providerId', params: { providerId: providerId! } })
+    } else {
+      const id = addProvider(data)
+      navigate({ to: '/providers/$providerId', params: { providerId: id } })
+    }
   }
 
   const handleCancel = () => {
@@ -60,9 +75,9 @@ export function CreateProviderProfile() {
           <FeatureHeader 
             breadcrumbParent={t("nav.providers")}
             breadcrumbParentLink="/providers"
-            breadcrumbCurrent={t("onboarding.provider.new_provider_breadcrumb")}
-            title={t("onboarding.provider.create_provider_title")}
-            description={t("onboarding.provider.create_provider_desc")}
+            breadcrumbCurrent={isEdit ? t("onboarding.provider.edit_provider_breadcrumb") : t("onboarding.provider.new_provider_breadcrumb")}
+            title={isEdit ? t("onboarding.provider.edit_provider_title") : t("onboarding.provider.create_provider_title")}
+            description={isEdit ? t("onboarding.provider.edit_provider_desc") : t("onboarding.provider.create_provider_desc")}
           />
 
           <div className="flex flex-col gap-16">
@@ -92,7 +107,7 @@ export function CreateProviderProfile() {
                   }} 
                   onCancel={handleCancel} 
                   isSubmitting={isSubmitting}
-                  submitLabel={t("onboarding.provider.create_provider_btn")}
+                  submitLabel={isEdit ? t("onboarding.provider.edit_provider_btn") : t("onboarding.provider.create_provider_btn")}
                 />
               </div>
             </FormSection>

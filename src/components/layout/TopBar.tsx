@@ -1,9 +1,12 @@
-import { Menu, LogOut } from "lucide-react"
+import { Menu, LogOut, UserCog } from "lucide-react"
 import { useState, useRef, useEffect } from "react"
 import { useTranslation } from "react-i18next"
 import { useNavigate } from "@tanstack/react-router"
 import { UserBadge } from "./UserBadge"
+import { EditPersonalInfoModal } from "./EditPersonalInfoModal"
+import { ConfirmDialog } from "../ui/confirm-dialog"
 import { UrgentNotifications } from "../../features/dashboard/components/UrgentNotifications"
+import type { PersonalInfoData } from "./EditPersonalInfoModal"
 
 interface TopBarProps {
   onMenuClick?: () => void
@@ -13,6 +16,12 @@ export function TopBar({ onMenuClick }: TopBarProps) {
   const { t } = useTranslation()
   const navigate = useNavigate()
   const [menuOpen, setMenuOpen] = useState(false)
+  const [editInfoOpen, setEditInfoOpen] = useState(false)
+  const [logoutConfirmOpen, setLogoutConfirmOpen] = useState(false)
+  const [personalInfo, setPersonalInfo] = useState<PersonalInfoData>(() => {
+    const stored = localStorage.getItem("coordinatorInfo")
+    return stored ? JSON.parse(stored) : { fullName: "Jane Doe", password: "" }
+  })
   const menuRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
@@ -66,7 +75,7 @@ export function TopBar({ onMenuClick }: TopBarProps) {
             className="flex items-center gap-2 focus:outline-none hover:opacity-80 cursor-pointer transition-opacity"
           >
             <span className="hidden sm:inline font-medium text-[14px] leading-5 text-text-secondary whitespace-nowrap">
-              {t("common.coordinator_profile")}
+               {personalInfo.fullName}
             </span>
             <UserBadge className="w-8 h-8 sm:w-10 sm:h-10" size={16} />
           </button>
@@ -76,7 +85,20 @@ export function TopBar({ onMenuClick }: TopBarProps) {
               <button
                 onClick={() => {
                   setMenuOpen(false)
-                  navigate({ to: '/login' })
+                  setEditInfoOpen(true)
+                }}
+                className="w-full flex items-center gap-2 px-4 py-2.5 text-sm text-foreground hover:bg-muted transition-colors cursor-pointer"
+              >
+                <UserCog size={16} />
+                Edit Personal Info
+              </button>
+
+              <div className="h-px bg-slate-100 mx-3" />
+
+              <button
+                onClick={() => {
+                  setMenuOpen(false)
+                  setLogoutConfirmOpen(true)
                 }}
                 className="w-full flex items-center gap-2 px-4 py-2.5 text-sm text-foreground hover:bg-muted transition-colors cursor-pointer"
               >
@@ -85,6 +107,26 @@ export function TopBar({ onMenuClick }: TopBarProps) {
               </button>
             </div>
           )}
+
+          <EditPersonalInfoModal
+            isOpen={editInfoOpen}
+            onClose={() => setEditInfoOpen(false)}
+            initialData={personalInfo}
+            onSave={(data) => {
+              setPersonalInfo(data)
+              localStorage.setItem("coordinatorInfo", JSON.stringify(data))
+            }}
+          />
+
+          <ConfirmDialog
+            open={logoutConfirmOpen}
+            onOpenChange={setLogoutConfirmOpen}
+            title="Confirm Logout"
+            description="Are you sure you want to log out? Any unsaved changes will be lost."
+            confirmLabel="Logout"
+            destructive
+            onConfirm={() => navigate({ to: '/login' })}
+          />
         </div>
       </div>
     </header>

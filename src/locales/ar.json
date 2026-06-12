@@ -75,7 +75,17 @@
     "messages": "الرسائل",
     "appointments": "المواعيد",
     "workload": "عبء العمل",
-    "areas": "مناطق الخدمة"
+    "areas": "مناطق الخدمة",
+    "insurances": "شركات التأمين"
+  },
+  "insurances": {
+    "description": "إدارة شركات التأمين والشبكات.",
+    "add_placeholder": "أدخل اسم شركة التأمين...",
+    "add_btn": "إضافة",
+    "empty": "لا توجد شركات تأمين بعد. أضف واحدة أعلاه.",
+    "delete_title": "حذف شركة التأمين",
+    "delete_desc": "هل أنت متأكد من حذف {{name}}؟ لا يمكن التراجع عن هذا الإجراء.",
+    "delete_confirm": "حذف"
   },
   "dashboard": {
     "subtitle": "خط الإحالات الخاص بك نشط اليوم. لديك {{count}} تقييمات عاجلة قيد المراجعة.",
@@ -250,13 +260,21 @@
       "new_provider_breadcrumb": "مزود جديد",
       "create_provider_title": "إنشاء ملف تعريف المزود",
       "create_provider_desc": "قم بإلحاق معالج جديد بشبكتك لبدء تلقي تعيينات الحالات.",
-      "create_provider_btn": "إنشاء ملف تعريف"
+      "create_provider_btn": "إنشاء ملف تعريف",
+      "edit_provider_breadcrumb": "تعديل المزود",
+      "edit_provider_title": "تحديث ملف تعريف المزود",
+      "edit_provider_desc": "تعديل التفاصيل المهنية ومعلومات التغطية الخاصة بالمزود.",
+      "edit_provider_btn": "حفظ التغييرات"
     },
     "patient": {
       "new_patient_breadcrumb": "ملف مريض جديد",
       "create_chart_title": "تهيئة ملف المريض",
       "create_chart_desc": "تسجيل مريض جديد في النظام لبدء عملية القبول والتقييم.",
-      "create_chart_btn": "إنشاء ملف"
+      "create_chart_btn": "إنشاء ملف",
+      "edit_chart_breadcrumb": "تعديل ملف المريض",
+      "edit_chart_title": "تحديث ملف المريض",
+      "edit_chart_desc": "تعديل معلومات المريض وتفاصيل الرعاية.",
+      "edit_chart_btn": "حفظ التغييرات"
     },
     "full_name_label": "الاسم القانوني الكامل",
     "npi_number_label": "رقم NPI",
@@ -268,7 +286,6 @@
     "email_label": "عنوان البريد الإلكتروني",
     "phone_label": "رقم الهاتف",
     "capacity_label": "القدرة الأسبوعية للحالات",
-    "capacity_desc": "الحد الأقصى الموصى به: {{count}} جلسات/أسبوع",
     "pay_rate_label": "معدل الدفع",
     "pay_type_label": "نوع الدفع",
     "lock_schedule": "قفل الجدول التشغيلي",

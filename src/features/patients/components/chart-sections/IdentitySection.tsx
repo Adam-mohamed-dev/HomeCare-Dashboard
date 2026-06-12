@@ -56,6 +56,27 @@ export function IdentitySection({ register, errors }: IdentitySectionProps) {
           />
         </FormField>
       </div>
+
+      <div className="mt-6">
+        <FormField label="Insurance Provider" error={errors.insuranceProvider}>
+          <Select 
+            {...register("insuranceProvider")}
+            className={cn(errors.insuranceProvider && "ring-2 ring-destructive")}
+          >
+            <option value="" disabled>Select insurance...</option>
+            <option value="Aetna">Aetna</option>
+            <option value="Aetna PPO">Aetna PPO</option>
+            <option value="Blue Cross">Blue Cross</option>
+            <option value="Blue Shield PPO">Blue Shield PPO</option>
+            <option value="Cigna">Cigna</option>
+            <option value="Medicare">Medicare</option>
+            <option value="Medicare Part A">Medicare Part A</option>
+            <option value="Medicare Part B">Medicare Part B</option>
+            <option value="UnitedHealthcare">UnitedHealthcare</option>
+            <option value="UnitedHealth">UnitedHealth</option>
+          </Select>
+        </FormField>
+      </div>
     </FormCard>
   )
 }

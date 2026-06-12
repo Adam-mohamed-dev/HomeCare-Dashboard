@@ -15,7 +15,7 @@ export function ProviderHeader({ onAddClick }: ProviderHeaderProps) {
       title={t("portfolio.providers_title")}
       description={t("portfolio.providers_desc")}
       actions={
-        <Button onClick={onAddClick} className="w-full md:w-auto rounded-full px-6 gap-2">
+        <Button onClick={onAddClick} className="w-full md:w-auto gap-2 rounded-full px-6 h-12 shadow-lg shadow-primary/20">
           <UserPlus size={18} />
           {t("portfolio.add_provider")}
         </Button>

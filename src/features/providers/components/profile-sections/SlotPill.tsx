@@ -1,7 +1,8 @@
 import { useFormContext } from "react-hook-form"
-import { Clock, MapPin, X, Lock } from "lucide-react"
+import { Clock, X, Lock } from "lucide-react"
 import type { ProviderFormData } from "../../schemas/providerSchema"
 import { cn } from "../../../../lib/utils"
+import { ZipCodeDropdown } from "./ZipCodeDropdown"
 
 interface SlotPillProps {
   dayIndex: number
@@ -11,7 +12,9 @@ interface SlotPillProps {
 }
 
 export function SlotPill({ dayIndex, slotIndex, onRemove, isLocked }: SlotPillProps) {
-  const { register } = useFormContext<ProviderFormData>()
+  const { register, watch, setValue } = useFormContext<ProviderFormData>()
+  const zipCodes = watch("zipCodes")
+  const currentZip = watch(`availability.${dayIndex}.slots.${slotIndex}.zipCode`)
 
   return (
     <div className={cn(
@@ -53,15 +56,11 @@ export function SlotPill({ dayIndex, slotIndex, onRemove, isLocked }: SlotPillPr
 
       <div className="flex items-center justify-between w-full sm:w-auto gap-1.5">
         <div className="flex items-center gap-1.5">
-          <MapPin size={12} className={isLocked ? "text-slate-300" : "text-primary/60"} />
-          <input 
-            placeholder="ZIP Code"
+          <ZipCodeDropdown
+            value={currentZip || ""}
+            selectedZips={zipCodes}
+            onChange={(zip) => setValue(`availability.${dayIndex}.slots.${slotIndex}.zipCode` as const, zip)}
             disabled={isLocked}
-            {...register(`availability.${dayIndex}.slots.${slotIndex}.zipCode` as const)}
-            className={cn(
-              "bg-transparent border-none p-0 w-full sm:w-20 text-[12px] font-bold focus:ring-0",
-              isLocked ? "text-slate-400" : "text-slate-700 placeholder:text-primary/30"
-            )}
           />
         </div>
         

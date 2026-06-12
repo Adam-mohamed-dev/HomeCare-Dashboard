@@ -15,3 +15,9 @@ export const getEmptyWeeklyAvailability = () =>
     day: day.id,
     slots: []
   }))
+
+export const MOCK_REGIONS = [
+  { id: 'north', name: 'North Region', zips: ['90210', '90211', '90212', '90213', '90214'] },
+  { id: 'downtown', name: 'Downtown', zips: ['90012', '90013', '90014', '90015'] },
+  { id: 'west', name: 'Westside', zips: ['90024', '90025', '90401', '90402'] }
+] as const

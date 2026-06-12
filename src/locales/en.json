@@ -75,7 +75,17 @@
     "messages": "Messages",
     "appointments": "Appointments",
     "workload": "Workload",
-    "areas": "Service Areas"
+    "areas": "Service Areas",
+    "insurances": "Insurances"
+  },
+  "insurances": {
+    "description": "Manage insurance carriers and networks.",
+    "add_placeholder": "Enter insurance name...",
+    "add_btn": "Add",
+    "empty": "No insurances yet. Add one above.",
+    "delete_title": "Delete Insurance",
+    "delete_desc": "Are you sure you want to remove {{name}}? This cannot be undone.",
+    "delete_confirm": "Delete"
   },
   "dashboard": {
     "subtitle": "Your referral pipeline is active today. You have {{count}} urgent evaluations under review.",
@@ -248,13 +258,21 @@
       "new_provider_breadcrumb": "New Provider",
       "create_provider_title": "Create Provider Profile",
       "create_provider_desc": "Onboard a new therapist to your network to start receiving case assignments.",
-      "create_provider_btn": "Create Profile"
+      "create_provider_btn": "Create Profile",
+      "edit_provider_breadcrumb": "Edit Provider",
+      "edit_provider_title": "Update Provider Profile",
+      "edit_provider_desc": "Modify the provider's professional details and coverage information.",
+      "edit_provider_btn": "Save Changes"
     },
     "patient": {
       "new_patient_breadcrumb": "New Patient Chart",
       "create_chart_title": "Initialize Patient Chart",
       "create_chart_desc": "Initialize a new patient in the system to begin intake and evaluation.",
-      "create_chart_btn": "Create Chart"
+      "create_chart_btn": "Create Chart",
+      "edit_chart_breadcrumb": "Edit Patient Chart",
+      "edit_chart_title": "Update Patient Chart",
+      "edit_chart_desc": "Modify the patient's information and care details.",
+      "edit_chart_btn": "Save Changes"
     },
     "full_name_label": "Full Legal Name",
     "discipline_label": "Primary Discipline",
@@ -263,7 +281,6 @@
     "insurance_networks_label": "Insurance Networks",
     "languages_label": "Languages Spoken",
     "capacity_label": "Weekly Case Capacity",
-    "capacity_desc": "Recommended max: {{count}} visits/week",
     "pay_rate_label": "Pay Rate",
     "pay_type_label": "Pay Type",
     "lock_schedule": "Lock Operational Schedule",

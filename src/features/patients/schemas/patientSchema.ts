@@ -15,8 +15,11 @@ export const patientSchema = z.object({
   
   // Outreach Strategy
   communicationMode: z.enum(["text", "phone", "email"]),
-  timingSlots: z.array(z.string()).min(1, "Select at least one timing slot"),
+  timingSlots: z.array(z.string()).optional().default([]),
   
+  // Insurance
+  insuranceProvider: z.string().min(1, "Insurance provider is required"),
+
   // Intake Docs
   documentType: z.string().optional()
 })

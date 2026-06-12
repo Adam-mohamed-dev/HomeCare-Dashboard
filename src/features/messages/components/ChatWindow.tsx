@@ -1,5 +1,5 @@
 import { useTranslation } from "react-i18next"
-import { Send, Paperclip, MoreVertical, Phone, Video } from "lucide-react"
+import { Send, Paperclip, ArrowLeft } from "lucide-react"
 import { UserAvatar } from "../../../components/ui/user-avatar"
 import { Button } from "../../../components/ui/button"
 import { MessageBubble } from "./MessageBubble"
@@ -10,9 +10,10 @@ interface ChatWindowProps {
   message: string
   onMessageChange: (val: string) => void
   onSend: () => void
+  onBack?: () => void
 }
 
-export function ChatWindow({ chat, message, onMessageChange, onSend }: ChatWindowProps) {
+export function ChatWindow({ chat, message, onMessageChange, onSend, onBack }: ChatWindowProps) {
   const { t } = useTranslation()
 
   if (!chat) {
@@ -30,33 +31,33 @@ export function ChatWindow({ chat, message, onMessageChange, onSend }: ChatWindo
   }
 
   return (
-    <div className="flex-1 flex flex-col bg-white">
+    <div className="flex-1 flex flex-col bg-white min-w-0">
       {/* Chat Header */}
       <div className="p-4 border-b border-slate-100 flex items-center justify-between bg-white/80 backdrop-blur-md">
         <div className="flex items-center gap-3">
-          <UserAvatar name={chat.name} image={chat.image} initials={chat.initials} className="h-10 w-10" />
-          <div className="flex flex-col">
-            <span className="font-bold text-slate-900 text-sm">{chat.name}</span>
+          {onBack && (
+            <Button
+              variant="ghost"
+              size="icon"
+              onClick={onBack}
+              className="lg:hidden text-slate-500 hover:text-primary rounded-full shrink-0"
+            >
+              <ArrowLeft size={20} />
+            </Button>
+          )}
+          <UserAvatar name={chat.name} image={chat.image} initials={chat.initials} className="h-10 w-10 shrink-0" />
+          <div className="flex flex-col min-w-0">
+            <span className="font-bold text-slate-900 text-sm truncate">{chat.name}</span>
             <span className="text-[10px] text-emerald-500 font-bold uppercase tracking-wider">
               {chat.status === "online" ? t("chat.status_online") : t("chat.status_offline")}
             </span>
           </div>
         </div>
-        <div className="flex items-center gap-1">
-          <Button variant="ghost" size="icon" className="text-slate-400 hover:text-primary rounded-full">
-            <Phone size={18} />
-          </Button>
-          <Button variant="ghost" size="icon" className="text-slate-400 hover:text-primary rounded-full">
-            <Video size={18} />
-          </Button>
-          <Button variant="ghost" size="icon" className="text-slate-400 hover:text-primary rounded-full">
-            <MoreVertical size={18} />
-          </Button>
-        </div>
+
       </div>
 
       {/* Messages Area */}
-      <div className="flex-1 overflow-y-auto p-8 flex flex-col gap-6 custom-scrollbar bg-slate-50/20">
+      <div className="flex-1 overflow-y-auto p-4 sm:p-8 flex flex-col gap-6 custom-scrollbar bg-slate-50/20">
         <MessageBubble 
           text={chat.lastMessage}
           time="10:30 AM"
@@ -71,15 +72,15 @@ export function ChatWindow({ chat, message, onMessageChange, onSend }: ChatWindo
       </div>
 
       {/* Input Area */}
-      <div className="p-6 border-t border-slate-100 bg-white">
-        <div className="flex items-center gap-4 p-2 pl-4 rounded-2xl bg-slate-50 border border-slate-100">
-          <Button variant="ghost" size="icon" className="text-slate-400 hover:text-primary rounded-xl shrink-0">
+      <div className="p-3 sm:p-6 border-t border-slate-100 bg-white">
+        <div className="flex items-center gap-3 p-2 pl-4 rounded-2xl bg-slate-50 border border-slate-100">
+          <Button variant="ghost" size="icon" className="text-slate-400 hover:text-primary rounded-xl shrink-0 hidden sm:flex">
             <Paperclip size={20} />
           </Button>
           <input 
             type="text"
             placeholder={t("chat.type_placeholder")}
-            className="flex-1 bg-transparent border-none focus:ring-0 text-sm text-slate-700"
+            className="flex-1 bg-transparent border-none focus:ring-0 text-sm text-slate-700 min-w-0"
             value={message}
             onChange={(e) => onMessageChange(e.target.value)}
             onKeyDown={(e) => e.key === 'Enter' && onSend()}

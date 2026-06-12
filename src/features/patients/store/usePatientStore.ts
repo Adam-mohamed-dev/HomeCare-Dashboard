@@ -6,6 +6,8 @@ interface PatientStore {
   patients: Patient[]
   profiles: Record<string, PatientProfileData>
   addPatient: (profile: PatientProfileData) => void
+  updatePatient: (profile: PatientProfileData) => void
+  removePatient: (id: string) => void
   getProfile: (id: string) => PatientProfileData | undefined
 }
 
@@ -254,6 +256,19 @@ export const usePatientStore = create<PatientStore>((set, get) => ({
     patients: [...state.patients, profileToPatient(profile)],
     profiles: { ...state.profiles, [profile.id]: profile },
   })),
+
+  updatePatient: (profile) => set((state) => ({
+    patients: state.patients.map(p => p.id === profile.id ? profileToPatient(profile) : p),
+    profiles: { ...state.profiles, [profile.id]: profile },
+  })),
+
+  removePatient: (id) => set((state) => {
+    const { [id]: _, ...rest } = state.profiles
+    return {
+      patients: state.patients.filter(p => p.id !== id),
+      profiles: rest,
+    }
+  }),
 
   getProfile: (id) => get().profiles[id],
 }))

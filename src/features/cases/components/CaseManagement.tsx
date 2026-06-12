@@ -34,10 +34,6 @@ export function CaseManagement() {
             {t("cases.mgmt_desc")}
           </p>
         </div>
-        <Button className="w-full md:w-auto rounded-full px-6 gap-2 bg-primary text-white h-12 shadow-lg shadow-primary/20">
-          <Plus size={20} />
-          {t("cases.new_referral")}
-        </Button>
       </div>
 
       <CaseFilters 
