@@ -38,7 +38,7 @@ export function CreatePatientChart({ patientId }: CreatePatientChartProps) {
     setValue,
     watch,
   } = useForm<PatientFormData>({
-    resolver: zodResolver(patientSchema),
+    resolver: zodResolver(patientSchema) as any,
     defaultValues: existingProfile ? {
       fullName: existingProfile.fullName,
       gender: existingProfile.gender as "male" | "female",
@@ -50,8 +50,10 @@ export function CreatePatientChart({ patientId }: CreatePatientChartProps) {
       zipCode: existingProfile.zipCode,
       communicationMode: existingProfile.communicationMode as "text" | "phone" | "email",
       insuranceProvider: existingProfile.insurance.provider,
+      timingSlots: existingProfile.timingSlots ?? [],
     } : {
       communicationMode: "text",
+      timingSlots: [],
     }
   })
 
@@ -95,6 +97,7 @@ export function CreatePatientChart({ patientId }: CreatePatientChartProps) {
         assignedPtImg: '',
         emergencyContact: { name: '', relation: '', phone: '' },
         insurance: { provider: data.insuranceProvider, memberId: '', groupNumber: '' },
+        timingSlots: data.timingSlots ?? [],
         visits: { scheduled: 0, completed: 0, missed: 0 },
         notes: { date: new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }).toUpperCase().replace(',', ''), author: 'COORDINATOR', content: 'Patient chart created.' },
       })
